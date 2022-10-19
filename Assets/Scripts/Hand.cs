@@ -16,6 +16,7 @@ public class Hand : MonoBehaviour
     public float speed;
 
     private string animatorGripParam = "Grip";
+    private string animatorTriggerParam = "Trigger";
 
     // Start is called before the first frame update
     void Start()
@@ -45,6 +46,12 @@ public class Hand : MonoBehaviour
         {
             gripCurrent = Mathf.MoveTowards(gripCurrent, gripTarget, Time.deltaTime * speed);
             animator.SetFloat(animatorGripParam, gripCurrent);
+        }
+
+        if (triggerCurrent != triggerTarget)
+        {
+            triggerCurrent = Mathf.MoveTowards(triggerCurrent, triggerTarget, Time.deltaTime * speed);
+            animator.SetFloat(animatorTriggerParam, triggerCurrent);
         }
     }
 }
