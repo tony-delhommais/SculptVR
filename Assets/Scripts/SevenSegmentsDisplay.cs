@@ -1,33 +1,53 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SevenSegmentsDisplay : MonoBehaviour
 {
     [SerializeField]
-    GameObject Tick1;
+    GameObject Segment1;
 
     [SerializeField]
-    GameObject Tick2;
+    GameObject Segment2;
 
     [SerializeField]
-    GameObject Tick3;
+    GameObject Segment3;
 
     [SerializeField]
-    GameObject Tick4;
+    GameObject Segment4;
 
     [SerializeField]
-    GameObject Tick5;
+    GameObject Segment5;
 
     [SerializeField]
-    GameObject Tick6;
+    GameObject Segment6;
 
     [SerializeField]
-    GameObject Tick7;
+    GameObject Segment7;
+
+    [NonSerialized]
+    public Color displayColor;
 
     private void Start()
     {
+        SetColor(displayColor);
+
         SetTo0();
+    }
+
+    public void SetColor(Color newDisplayColor)
+    {
+        displayColor = newDisplayColor;
+        
+        if (Segment1) Segment1.GetComponent<Renderer>().material.color = displayColor;
+        if (Segment2) Segment2.GetComponent<Renderer>().material.color = displayColor;
+        if (Segment3) Segment3.GetComponent<Renderer>().material.color = displayColor;
+        if (Segment4) Segment4.GetComponent<Renderer>().material.color = displayColor;
+        if (Segment5) Segment5.GetComponent<Renderer>().material.color = displayColor;
+        if (Segment6) Segment6.GetComponent<Renderer>().material.color = displayColor;
+        if (Segment7) Segment7.GetComponent<Renderer>().material.color = displayColor;
     }
 
     public void SetToN(int n)
@@ -72,113 +92,124 @@ public class SevenSegmentsDisplay : MonoBehaviour
         }
     }
 
+    public void SetToNone()
+    {
+        if (Segment1 != null) Segment1.SetActive(false);
+        if (Segment2 != null) Segment2.SetActive(false);
+        if (Segment3 != null) Segment3.SetActive(false);
+        if (Segment4 != null) Segment4.SetActive(false);
+        if (Segment5 != null) Segment5.SetActive(false);
+        if (Segment6 != null) Segment6.SetActive(false);
+        if (Segment7 != null) Segment7.SetActive(false);
+    }
+
     void SetTo0()
     {
-        if(Tick1 != null) Tick1.SetActive(true);
-        if(Tick2 != null) Tick2.SetActive(true);
-        if(Tick3 != null) Tick3.SetActive(true);
-        if(Tick4 != null) Tick4.SetActive(true);
-        if(Tick5 != null) Tick5.SetActive(true);
-        if(Tick6 != null) Tick6.SetActive(true);
-        if(Tick7 != null) Tick7.SetActive(false);
+        if(Segment1 != null) Segment1.SetActive(true);
+        if(Segment2 != null) Segment2.SetActive(true);
+        if(Segment3 != null) Segment3.SetActive(true);
+        if(Segment4 != null) Segment4.SetActive(true);
+        if(Segment5 != null) Segment5.SetActive(true);
+        if(Segment6 != null) Segment6.SetActive(true);
+        if(Segment7 != null) Segment7.SetActive(false);
     }
 
     void SetTo1()
     {
-        if (Tick1 != null) Tick1.SetActive(false);
-        if (Tick2 != null) Tick2.SetActive(true);
-        if (Tick3 != null) Tick3.SetActive(true);
-        if (Tick4 != null) Tick4.SetActive(false);
-        if (Tick5 != null) Tick5.SetActive(false);
-        if (Tick6 != null) Tick6.SetActive(false);
-        if (Tick7 != null) Tick7.SetActive(false);
+        if (Segment1 != null) Segment1.SetActive(false);
+        if (Segment2 != null) Segment2.SetActive(true);
+        if (Segment3 != null) Segment3.SetActive(true);
+        if (Segment4 != null) Segment4.SetActive(false);
+        if (Segment5 != null) Segment5.SetActive(false);
+        if (Segment6 != null) Segment6.SetActive(false);
+        if (Segment7 != null) Segment7.SetActive(false);
     }
 
     void SetTo2()
     {
-        if (Tick1 != null) Tick1.SetActive(true);
-        if (Tick2 != null) Tick2.SetActive(true);
-        if (Tick3 != null) Tick3.SetActive(false);
-        if (Tick4 != null) Tick4.SetActive(true);
-        if (Tick5 != null) Tick5.SetActive(true);
-        if (Tick6 != null) Tick6.SetActive(false);
-        if (Tick7 != null) Tick7.SetActive(true);
+        if (Segment1 != null) Segment1.SetActive(true);
+        if (Segment2 != null) Segment2.SetActive(true);
+        if (Segment3 != null) Segment3.SetActive(false);
+        if (Segment4 != null) Segment4.SetActive(true);
+        if (Segment5 != null) Segment5.SetActive(true);
+        if (Segment6 != null) Segment6.SetActive(false);
+        if (Segment7 != null) Segment7.SetActive(true);
     }
 
     void SetTo3()
     {
-        if (Tick1 != null) Tick1.SetActive(true);
-        if (Tick2 != null) Tick2.SetActive(true);
-        if (Tick3 != null) Tick3.SetActive(true);
-        if (Tick4 != null) Tick4.SetActive(true);
-        if (Tick5 != null) Tick5.SetActive(false);
-        if (Tick6 != null) Tick6.SetActive(false);
-        if (Tick7 != null) Tick7.SetActive(true);
+        if (Segment1 != null) Segment1.SetActive(true);
+        if (Segment2 != null) Segment2.SetActive(true);
+        if (Segment3 != null) Segment3.SetActive(true);
+        if (Segment4 != null) Segment4.SetActive(true);
+        if (Segment5 != null) Segment5.SetActive(false);
+        if (Segment6 != null) Segment6.SetActive(false);
+        if (Segment7 != null) Segment7.SetActive(true);
     }
 
     void SetTo4()
     {
-        if (Tick1 != null) Tick1.SetActive(false);
-        if (Tick2 != null) Tick2.SetActive(true);
-        if (Tick3 != null) Tick3.SetActive(true);
-        if (Tick4 != null) Tick4.SetActive(false);
-        if (Tick5 != null) Tick5.SetActive(false);
-        if (Tick6 != null) Tick6.SetActive(true);
-        if (Tick7 != null) Tick7.SetActive(true);
+        if (Segment1 != null) Segment1.SetActive(false);
+        if (Segment2 != null) Segment2.SetActive(true);
+        if (Segment3 != null) Segment3.SetActive(true);
+        if (Segment4 != null) Segment4.SetActive(false);
+        if (Segment5 != null) Segment5.SetActive(false);
+        if (Segment6 != null) Segment6.SetActive(true);
+        if (Segment7 != null) Segment7.SetActive(true);
     }
 
     void SetTo5()
     {
-        if (Tick1 != null) Tick1.SetActive(true);
-        if (Tick2 != null) Tick2.SetActive(false);
-        if (Tick3 != null) Tick3.SetActive(true);
-        if (Tick4 != null) Tick4.SetActive(true);
-        if (Tick5 != null) Tick5.SetActive(false);
-        if (Tick6 != null) Tick6.SetActive(true);
-        if (Tick7 != null) Tick7.SetActive(true);
+        if (Segment1 != null) Segment1.SetActive(true);
+        if (Segment2 != null) Segment2.SetActive(false);
+        if (Segment3 != null) Segment3.SetActive(true);
+        if (Segment4 != null) Segment4.SetActive(true);
+        if (Segment5 != null) Segment5.SetActive(false);
+        if (Segment6 != null) Segment6.SetActive(true);
+        if (Segment7 != null) Segment7.SetActive(true);
     }
 
     void SetTo6()
     {
-        if (Tick1 != null) Tick1.SetActive(true);
-        if (Tick2 != null) Tick2.SetActive(false);
-        if (Tick3 != null) Tick3.SetActive(true);
-        if (Tick4 != null) Tick4.SetActive(true);
-        if (Tick5 != null) Tick5.SetActive(true);
-        if (Tick6 != null) Tick6.SetActive(true);
-        if (Tick7 != null) Tick7.SetActive(true);
+        if (Segment1 != null) Segment1.SetActive(true);
+        if (Segment2 != null) Segment2.SetActive(false);
+        if (Segment3 != null) Segment3.SetActive(true);
+        if (Segment4 != null) Segment4.SetActive(true);
+        if (Segment5 != null) Segment5.SetActive(true);
+        if (Segment6 != null) Segment6.SetActive(true);
+        if (Segment7 != null) Segment7.SetActive(true);
     }
 
     void SetTo7()
     {
-        if (Tick1 != null) Tick1.SetActive(true);
-        if (Tick2 != null) Tick2.SetActive(true);
-        if (Tick3 != null) Tick3.SetActive(true);
-        if (Tick4 != null) Tick4.SetActive(false);
-        if (Tick5 != null) Tick5.SetActive(false);
-        if (Tick6 != null) Tick6.SetActive(false);
-        if (Tick7 != null) Tick7.SetActive(false);
+        if (Segment1 != null) Segment1.SetActive(true);
+        if (Segment2 != null) Segment2.SetActive(true);
+        if (Segment3 != null) Segment3.SetActive(true);
+        if (Segment4 != null) Segment4.SetActive(false);
+        if (Segment5 != null) Segment5.SetActive(false);
+        if (Segment6 != null) Segment6.SetActive(false);
+        if (Segment7 != null) Segment7.SetActive(false);
     }
 
     void SetTo8()
     {
-        if (Tick1 != null) Tick1.SetActive(true);
-        if (Tick2 != null) Tick2.SetActive(true);
-        if (Tick3 != null) Tick3.SetActive(true);
-        if (Tick4 != null) Tick4.SetActive(true);
-        if (Tick5 != null) Tick5.SetActive(true);
-        if (Tick6 != null) Tick6.SetActive(true);
-        if (Tick7 != null) Tick7.SetActive(true);
+        if (Segment1 != null) Segment1.SetActive(true);
+        if (Segment2 != null) Segment2.SetActive(true);
+        if (Segment3 != null) Segment3.SetActive(true);
+        if (Segment4 != null) Segment4.SetActive(true);
+        if (Segment5 != null) Segment5.SetActive(true);
+        if (Segment6 != null) Segment6.SetActive(true);
+        if (Segment7 != null) Segment7.SetActive(true);
     }
 
     void SetTo9()
     {
-        if (Tick1 != null) Tick1.SetActive(true);
-        if (Tick2 != null) Tick2.SetActive(true);
-        if (Tick3 != null) Tick3.SetActive(true);
-        if (Tick4 != null) Tick4.SetActive(true);
-        if (Tick5 != null) Tick5.SetActive(false);
-        if (Tick6 != null) Tick6.SetActive(true);
-        if (Tick7 != null) Tick7.SetActive(true);
+        if (Segment1 != null) Segment1.SetActive(true);
+        if (Segment2 != null) Segment2.SetActive(true);
+        if (Segment3 != null) Segment3.SetActive(true);
+        if (Segment4 != null) Segment4.SetActive(true);
+        if (Segment5 != null) Segment5.SetActive(false);
+        if (Segment6 != null) Segment6.SetActive(true);
+        if (Segment7 != null) Segment7.SetActive(true);
     }
 }

@@ -51,13 +51,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e9b2efed927c4345a520eb0cceca983, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Tick1: {fileID: 3718817960458878298}
-  Tick2: {fileID: 7567685690215089511}
-  Tick3: {fileID: 7816457805439000286}
-  Tick4: {fileID: 7165533659896449211}
-  Tick5: {fileID: 8805770021401803054}
-  Tick6: {fileID: 4612168765127512275}
-  Tick7: {fileID: 3112603022120976493}
+  Segment1: {fileID: 3718817960458878298}
+  Segment2: {fileID: 7567685690215089511}
+  Segment3: {fileID: 7816457805439000286}
+  Segment4: {fileID: 7165533659896449211}
+  Segment5: {fileID: 8805770021401803054}
+  Segment6: {fileID: 4612168765127512275}
+  Segment7: {fileID: 3112603022120976493}
+  displayColor: {r: 1, g: 0, b: 0, a: 0}
 --- !u!1 &3112603022120976493
 GameObject:
   m_ObjectHideFlags: 0

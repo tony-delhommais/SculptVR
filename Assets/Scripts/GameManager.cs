@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -23,9 +24,14 @@ public class GameManager : MonoBehaviour
     int secondes = 0;
 
     [SerializeField]
-    GameObject clock;
+    GameObject clockDisplay;
+
+    [SerializeField]
+    GameObject scoreDisplay;
 
     DigitalClock digitalClock;
+
+    DigitalClock digitalScoreDisplay;
 
     private void Awake()
     {
@@ -69,6 +75,8 @@ public class GameManager : MonoBehaviour
 
     public void RestartTimer()
     {
+        Debug.Log("Timer restart");
+
         ResetTimer();
 
         StartCoroutine(UpdateTimer());
@@ -93,10 +101,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void DisplayScore(int score)
+    {
+        digitalScoreDisplay.SetEntireNumber(score);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        if(clock != null) digitalClock = clock.GetComponent<DigitalClock>();
+        if(clockDisplay != null) digitalClock = clockDisplay.GetComponent<DigitalClock>();
+        if(scoreDisplay != null) digitalScoreDisplay = scoreDisplay.GetComponent<DigitalClock>();
 
         ResetTimer();
 
@@ -109,9 +123,12 @@ public class GameManager : MonoBehaviour
     {
         while(true)
         {
-            caplaList = caplaList.OrderBy(w => w.GetHeight()).ToList();
+            if(caplaList.Count > 0)
+            {
+                caplaList = caplaList.OrderBy(w => w.GetHeight()).ToList();
 
-            currentHighestCapla = caplaList[caplaList.Count - 1];
+                currentHighestCapla = caplaList[caplaList.Count - 1];
+            }
 
             yield return new WaitForSeconds(0.1f);
         }
@@ -137,6 +154,8 @@ public class GameManager : MonoBehaviour
         }
 
         UpdateClockTime();
+
+        if (currentHighestCapla) DisplayScore((int)(currentHighestCapla.GetHeight() * 100));
 
         yield return null;
     }
