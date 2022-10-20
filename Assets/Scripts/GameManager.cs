@@ -22,6 +22,11 @@ public class GameManager : MonoBehaviour
     int minutes = 2;
     int secondes = 0;
 
+    [SerializeField]
+    GameObject clock;
+
+    DigitalClock digitalClock;
+
     private void Awake()
     {
         if (instance == null)
@@ -79,12 +84,25 @@ public class GameManager : MonoBehaviour
         return secondes;
     }
 
+    void UpdateClockTime()
+    {
+        if(digitalClock)
+        {
+            digitalClock.SetMinutes(minutes);
+            digitalClock.SetSecondes(secondes);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+        if(clock != null) digitalClock = clock.GetComponent<DigitalClock>();
+
         ResetTimer();
 
         StartCoroutine(ComputeNewMaxHeight());
+
+        RestartTimer();
     }
 
     IEnumerator ComputeNewMaxHeight()
@@ -103,9 +121,7 @@ public class GameManager : MonoBehaviour
     {
         while(minutes != 0 || secondes != 0)
         {
-            yield return new WaitForSeconds(1);
-
-            Debug.Log(minutes + "  " + secondes);
+            UpdateClockTime();
 
             if (secondes == 0)
             {
@@ -116,9 +132,11 @@ public class GameManager : MonoBehaviour
             {
                 secondes--;
             }
+
+            yield return new WaitForSeconds(1);
         }
 
-        Debug.Log(minutes + "  " + secondes);
+        UpdateClockTime();
 
         yield return null;
     }
