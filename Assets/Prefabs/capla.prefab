@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8879503282971116555}
   - component: {fileID: 8879503282971116553}
   - component: {fileID: 8879503282971116552}
+  - component: {fileID: -7203653406587419609}
   m_Layer: 0
   m_Name: capla
   m_TagString: Untagged
@@ -49,7 +50,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &8879503282971116552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,6 +176,18 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+--- !u!114 &-7203653406587419609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8879503282971116554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e27f33da284e0f4e8fb3b55c6fa81f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8879503282316926681
 PrefabInstance:
   m_ObjectHideFlags: 0

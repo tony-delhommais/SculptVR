@@ -114,6 +114,8 @@ public class GameManager : MonoBehaviour
 
         ResetTimer();
 
+        DisplayScore(0);
+
         StartCoroutine(ComputeNewMaxHeight());
 
         RestartTimer();
