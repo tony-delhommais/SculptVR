@@ -7,23 +7,27 @@ using UnityEngineInternal;
 public class Shaked : MonoBehaviour
 {
     bool isShaked = false;
-    bool previousIsShaked = false;
 
     Vector3 previousVelocity;
 
     Rigidbody rb;
 
     [SerializeField]
-    float minShakeVelocityMatch = 0.0015f;
+    float minShakeVelocityMatch = 0.02f;
 
     [SerializeField]
-    int minGoodShakeVelocityCount = 12;
+    int minGoodShakeVelocityCount = 15;
 
     [SerializeField]
-    int minBadShakeVelocityCount = 30;
+    int minBadShakeVelocityCount = 15;
 
     int goodShakeVelocityCount = 0;
     int badShakeVelocityCount = 0;
+
+    [SerializeField]
+    GameObject caplaPrefab;
+
+    bool spawnCaplaCoroutineIsStarted = false;
 
     private void Awake()
     {
@@ -36,34 +40,64 @@ public class Shaked : MonoBehaviour
         if (rb)
         {
             float velocityMatch = Vector3.Magnitude(previousVelocity - rb.velocity);
+            previousVelocity = rb.velocity;
 
-            if(velocityMatch > minShakeVelocityMatch)
+            if (velocityMatch > minShakeVelocityMatch)
             {
-                goodShakeVelocityCount++;
+                if (++goodShakeVelocityCount > minGoodShakeVelocityCount) goodShakeVelocityCount = minGoodShakeVelocityCount;
+
+                if (--badShakeVelocityCount < 0) badShakeVelocityCount = 0;
             }
             else
             {
-                badShakeVelocityCount++;
+                if (--goodShakeVelocityCount < 0) goodShakeVelocityCount = 0;
 
-                if(badShakeVelocityCount > minBadShakeVelocityCount)
-                {
-                    goodShakeVelocityCount = 0;
-                    badShakeVelocityCount = 0;
-                    isShaked = false;
-                }
+                if (++badShakeVelocityCount > minBadShakeVelocityCount) badShakeVelocityCount = minBadShakeVelocityCount;
             }
 
-            if(goodShakeVelocityCount > minGoodShakeVelocityCount)
+            if (goodShakeVelocityCount >= badShakeVelocityCount)
             {
                 isShaked = true;
             }
+            else
+            {
+                isShaked = false;
+            }
         }
 
-        if (isShaked != previousIsShaked)
+        if (isShaked)
         {
-            previousIsShaked = isShaked;
-
-            Debug.Log(isShaked);
+            if(!spawnCaplaCoroutineIsStarted)
+            {
+                StartCoroutine(SpawnCapla());
+                spawnCaplaCoroutineIsStarted = true;
+            }
         }
+        else
+        {
+            if(spawnCaplaCoroutineIsStarted)
+            {
+                StopAllCoroutines();
+                spawnCaplaCoroutineIsStarted = false;
+            }
+        }
+    }
+
+    IEnumerator SpawnCapla()
+    {
+        if(caplaPrefab)
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(0.2f);
+
+                GameObject spawned = Instantiate(caplaPrefab);
+
+                spawned.transform.position = transform.position;
+                spawned.GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity * 0.8f;
+            }
+        }
+
+        yield return null;
     }
 }
