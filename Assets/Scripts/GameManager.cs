@@ -33,6 +33,12 @@ public class GameManager : MonoBehaviour
 
     DigitalClock digitalScoreDisplay;
 
+    [SerializeField]
+    GameObject resetBox;
+
+    BoxController resetBoxController;
+    Material resetBoxMaterial;
+
     private void Awake()
     {
         if (instance == null)
@@ -112,13 +118,18 @@ public class GameManager : MonoBehaviour
         if(clockDisplay != null) digitalClock = clockDisplay.GetComponent<DigitalClock>();
         if(scoreDisplay != null) digitalScoreDisplay = scoreDisplay.GetComponent<DigitalClock>();
 
+        if(resetBox != null) resetBoxController = resetBox.GetComponent<BoxController>();
+        if(resetBox != null) resetBoxMaterial = resetBox.GetComponentInChildren<Renderer>().material;
+
         ResetTimer();
 
         DisplayScore(0);
 
         StartCoroutine(ComputeNewMaxHeight());
 
-        RestartTimer();
+        StartCoroutine(TesterResetGame());
+
+        //RestartTimer();
     }
 
     IEnumerator ComputeNewMaxHeight()
@@ -160,5 +171,27 @@ public class GameManager : MonoBehaviour
         if (currentHighestCapla) DisplayScore((int)(currentHighestCapla.GetHeight() * 100));
 
         yield return null;
+    }
+
+    IEnumerator TesterResetGame()
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(0.1f);
+
+            if(resetBoxController)
+            {
+                bool isTrigger = resetBoxController.IsTriggering();
+
+                if(isTrigger)
+                {
+                    resetBoxMaterial.color = new Color(0, 1, 0);
+                }
+                else
+                {
+                    resetBoxMaterial.color = new Color(1, 0, 0);
+                }
+            }
+        }
     }
 }
