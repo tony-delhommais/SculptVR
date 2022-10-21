@@ -4836,6 +4836,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1986453994}
   - component: {fileID: 1986453993}
+  - component: {fileID: 1986453995}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4860,6 +4861,7 @@ MonoBehaviour:
   secondesStartTimer: 0
   clockDisplay: {fileID: 864378087}
   scoreDisplay: {fileID: 8351844060067350792}
+  resetBox: {fileID: 2142978104}
 --- !u!4 &1986453994
 Transform:
   m_ObjectHideFlags: 0
@@ -4875,6 +4877,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1986453995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1986453992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fa48608c707eef43ad3b918ab275e3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  primaryButtonPress:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &2030741683 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -9089615444713831131, guid: 0b3f6ec578c471245836b4a08a47de02, type: 3}
@@ -5120,6 +5137,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2142978104 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7510576005379982735, guid: 26d2ee547fc27694a97d24e155ea3547, type: 3}
+  m_PrefabInstance: {fileID: 1627904545}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2498224357209568200
 PrefabInstance:
   m_ObjectHideFlags: 0

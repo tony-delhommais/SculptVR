@@ -7,6 +7,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class HandController : MonoBehaviour
 {
     ActionBasedController controller;
+    
     public Hand hand;
 
     // Start is called before the first frame update
@@ -18,7 +19,6 @@ public class HandController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        hand.SetGrip(controller.selectAction.action.ReadValue<float>());
         hand.SetTrigger(controller.activateAction.action.ReadValue<float>());
     }
 }

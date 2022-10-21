@@ -81,8 +81,6 @@ public class GameManager : MonoBehaviour
 
     public void RestartTimer()
     {
-        Debug.Log("Timer restart");
-
         ResetTimer();
 
         StartCoroutine(UpdateTimer());
@@ -112,6 +110,24 @@ public class GameManager : MonoBehaviour
         digitalScoreDisplay.SetEntireNumber(score);
     }
 
+    void OnAButtonRightPressed(bool isPressed)
+    {
+        if (isPressed)
+        {
+            if (resetBoxController)
+            {
+                if (resetBoxController.IsTriggering())
+                {
+                    RestartTimer();
+
+                    resetBoxController.RemoveAllTriggerIn();
+
+                    if(digitalScoreDisplay) digitalScoreDisplay.SetEntireNumber(0);
+                }
+            }
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -121,6 +137,8 @@ public class GameManager : MonoBehaviour
         if(resetBox != null) resetBoxController = resetBox.GetComponent<BoxController>();
         if(resetBox != null) resetBoxMaterial = resetBox.GetComponentInChildren<Renderer>().material;
 
+        PrimaryButtonWatcher.instance.primaryButtonPress.AddListener(OnAButtonRightPressed);
+
         ResetTimer();
 
         DisplayScore(0);
@@ -128,8 +146,6 @@ public class GameManager : MonoBehaviour
         StartCoroutine(ComputeNewMaxHeight());
 
         StartCoroutine(TesterResetGame());
-
-        //RestartTimer();
     }
 
     IEnumerator ComputeNewMaxHeight()
