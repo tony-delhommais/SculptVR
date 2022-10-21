@@ -4855,6 +4855,10 @@ PrefabInstance:
       propertyPath: minGoodShakeVelocityCount
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 2483934785146891176, guid: 252a268df05377c4eacb41f3a139ff05, type: 3}
+      propertyPath: minShakeVelocityMatch
+      value: 0.04
+      objectReference: {fileID: 0}
     - target: {fileID: 3864598976604921752, guid: 252a268df05377c4eacb41f3a139ff05, type: 3}
       propertyPath: m_UseGravity
       value: 1
