@@ -5,36 +5,42 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider))]
 public class BoxController : MonoBehaviour
 {
-    int nbTriggerActive = 0;
-
     List<GameObject> objectsIn = new List<GameObject>();
 
     private void OnTriggerEnter(Collider other)
     {
-        nbTriggerActive++;
-        objectsIn.Add(other.gameObject);
+        if(other.transform.parent)
+        {
+            if (other.transform.parent.gameObject.CompareTag("Capla"))
+            {
+                objectsIn.Add(other.transform.parent.gameObject);
+            }
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        nbTriggerActive--;
-        objectsIn.Remove(other.gameObject);
+        if (other.transform.parent)
+        {
+            if (other.transform.parent.gameObject.CompareTag("Capla"))
+            {
+                objectsIn.Remove(other.transform.parent.gameObject);
+            }
+        }
     }
 
     public bool IsTriggering(int minimumTrigger = 1)
     {
-        return nbTriggerActive >= minimumTrigger;
+        return objectsIn.Count >= minimumTrigger;
     }
 
     public void RemoveAllTriggerIn()
     {
         foreach(GameObject obj in objectsIn)
         {
-            Destroy(obj.transform.parent.gameObject);
+            Destroy(obj);
         }
 
         objectsIn.Clear();
-
-        nbTriggerActive = 0;
     }
 }

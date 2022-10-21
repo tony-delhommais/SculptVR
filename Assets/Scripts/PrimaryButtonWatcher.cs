@@ -10,16 +10,23 @@ public class PrimaryButtonWatcher : MonoBehaviour
 {
     public static PrimaryButtonWatcher instance;
 
-    public PrimaryButtonEvent primaryButtonPress;
+    public PrimaryButtonEvent primaryButtonPressRight;
+    public PrimaryButtonEvent primaryButtonPressLeft;
 
-    private bool lastButtonState = false;
+    private bool lastButtonStateRight = false;
+    private bool lastButtonStateLeft = false;
     private List<InputDevice> devicesWithPrimaryButton;
 
     private void Awake()
     {
-        if (primaryButtonPress == null)
+        if (primaryButtonPressRight == null)
         {
-            primaryButtonPress = new PrimaryButtonEvent();
+            primaryButtonPressRight = new PrimaryButtonEvent();
+        }
+
+        if (primaryButtonPressLeft == null)
+        {
+            primaryButtonPressLeft = new PrimaryButtonEvent();
         }
 
         if (instance == null)
@@ -68,22 +75,40 @@ public class PrimaryButtonWatcher : MonoBehaviour
 
     void Update()
     {
-        bool tempState = false;
+        bool tempStateRight = false;
         foreach (var device in devicesWithPrimaryButton)
         {
             if (!device.name.Contains("Right"))
                 continue;
 
             bool primaryButtonState = false;
-            tempState = device.TryGetFeatureValue(CommonUsages.primaryButton, out primaryButtonState) // did get a value
+            tempStateRight = device.TryGetFeatureValue(CommonUsages.primaryButton, out primaryButtonState) // did get a value
                         && primaryButtonState // the value we got
-                        || tempState; // cumulative result from other controllers
+                        || tempStateRight; // cumulative result from other controllers
         }
 
-        if (tempState != lastButtonState) // Button state changed since last frame
+        if (tempStateRight != lastButtonStateRight) // Button state changed since last frame
         {
-            primaryButtonPress.Invoke(tempState);
-            lastButtonState = tempState;
+            primaryButtonPressRight.Invoke(tempStateRight);
+            lastButtonStateRight = tempStateRight;
+        }
+
+        bool tempStateLeft = false;
+        foreach (var device in devicesWithPrimaryButton)
+        {
+            if (!device.name.Contains("Left"))
+                continue;
+
+            bool primaryButtonState = false;
+            tempStateLeft = device.TryGetFeatureValue(CommonUsages.primaryButton, out primaryButtonState) // did get a value
+                        && primaryButtonState // the value we got
+                        || tempStateLeft; // cumulative result from other controllers
+        }
+
+        if (tempStateLeft != lastButtonStateLeft) // Button state changed since last frame
+        {
+            primaryButtonPressLeft.Invoke(tempStateLeft);
+            lastButtonStateLeft = tempStateLeft;
         }
     }
 }

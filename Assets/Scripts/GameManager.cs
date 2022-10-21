@@ -39,6 +39,9 @@ public class GameManager : MonoBehaviour
     BoxController resetBoxController;
     Material resetBoxMaterial;
 
+    [SerializeField]
+    GameObject MenuExit;
+
     private void Awake()
     {
         if (instance == null)
@@ -83,6 +86,8 @@ public class GameManager : MonoBehaviour
     {
         ResetTimer();
 
+        StopCoroutine(UpdateTimer());
+
         StartCoroutine(UpdateTimer());
     }
 
@@ -114,7 +119,12 @@ public class GameManager : MonoBehaviour
     {
         if (isPressed)
         {
-            if (resetBoxController)
+            if(menuToggle)
+            {
+                Application.Quit();
+            }
+
+            else if (resetBoxController)
             {
                 if (resetBoxController.IsTriggering())
                 {
@@ -124,6 +134,21 @@ public class GameManager : MonoBehaviour
 
                     if(digitalScoreDisplay) digitalScoreDisplay.SetEntireNumber(0);
                 }
+            }
+        }
+    }
+    bool menuToggle = false;
+    void OnXButtonLeftPressed(bool isPressed)
+    {
+        if(isPressed)
+        {
+            if(!menuToggle)
+            {
+                menuToggle = true;
+            }
+            else
+            {
+                menuToggle = false;
             }
         }
     }
@@ -137,7 +162,8 @@ public class GameManager : MonoBehaviour
         if(resetBox != null) resetBoxController = resetBox.GetComponent<BoxController>();
         if(resetBox != null) resetBoxMaterial = resetBox.GetComponentInChildren<Renderer>().material;
 
-        PrimaryButtonWatcher.instance.primaryButtonPress.AddListener(OnAButtonRightPressed);
+        PrimaryButtonWatcher.instance.primaryButtonPressRight.AddListener(OnAButtonRightPressed);
+        PrimaryButtonWatcher.instance.primaryButtonPressLeft.AddListener(OnXButtonLeftPressed);
 
         ResetTimer();
 
@@ -146,6 +172,11 @@ public class GameManager : MonoBehaviour
         StartCoroutine(ComputeNewMaxHeight());
 
         StartCoroutine(TesterResetGame());
+    }
+
+    private void Update()
+    {
+        if(MenuExit) MenuExit.SetActive(menuToggle);
     }
 
     IEnumerator ComputeNewMaxHeight()
