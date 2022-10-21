@@ -55,13 +55,13 @@ public class Spawner : MonoBehaviour
         randomZ.Add(0.04f);
         randomZ.Add(0.06f);
 
-        randomColor.Add(new Color(0, 0, 0, 1.0f));
         randomColor.Add(new Color(1, 0, 0, 0.5f));
         randomColor.Add(new Color(0, 1, 0, 0.5f));
         randomColor.Add(new Color(0, 0, 1, 0.5f));
         randomColor.Add(new Color(1, 1, 0, 0.5f));
         randomColor.Add(new Color(1, 0, 1, 0.5f));
         randomColor.Add(new Color(0, 1, 1, 0.5f));
+        randomColor.Add(new Color(1, 1, 1, 1.0f));
     }
 
     // Update is called once per frame

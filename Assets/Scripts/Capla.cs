@@ -16,6 +16,14 @@ public class Capla : MonoBehaviour
         height = transform.position.y - GameManager.instance.GetHeightOrigin();
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Ground")
+        {
+            Destroy(gameObject);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
